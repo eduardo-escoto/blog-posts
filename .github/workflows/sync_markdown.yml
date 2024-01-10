@@ -37,3 +37,4 @@ jobs:
           python ./scripts/process_markdown.py
           git add .
           git commit -m "Updating markdown files from Obsidian Git Push to Github."
+          git push origin main
