@@ -24,12 +24,14 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          git config --global user.email "me@eduardo.wtf"
-          git config --global user.name "Eduardo Escoto"
+          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+          git config --global user.email "username@users.noreply.github.com"
           pip install python-frontmatter python-slugify
           git clone https://github.com/eduardo-escoto/eduardo.wtf-new.git
           cd eduardo.wtf-new
