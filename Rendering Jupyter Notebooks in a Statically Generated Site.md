@@ -15,7 +15,7 @@ Jupyter notebooks consist of cells of code and markdown, along with outputs from
 
 While at first they seem like they may be complex files, they are actuall just JSON under the hood!
 A brief preview of the structure:
-```JSON
+```js
 {
  "cells": [
   {
@@ -52,9 +52,10 @@ A brief preview of the structure:
 Thus, to render this on a website, one initial though is to just iterate over the `cells` array in the JSON and write some components and rendering logic to display the code, markdown, and outputs. This logic can be embedded in static site generating websites as plugins, or as a `unified` plugin, however no one has built one yet. My hunch as to why is that there is a better way -- `nbconvert`. 
 ## nbconvert
 
-As mentioned above, one way to render, is parsing the JSON manually. While that may work, there is another (most likely better) way [nbconvert](https://nbconvert.readthedocs.io/en/latest/). `nbconvert` is the included Jupyter Notebook converter that can output a Jupyter Notebook to many different file types, including Markdown and HTML. Since Astro, remark, and rehype are build to handle Markdown, getting nbconvert to output my notebooks works perfectly! Using nbconvert in this way is as easy as:
+As mentioned above, one way to render, is parsing the JSON manually. While that may work, there is another (most likely better) way [nbconvert](https://nbconvert.readthedocs.io/en/latest/). `nbconvert` is the included Jupyter Notebook converter that can output a Jupyter Notebook to many different file types, including Markdown and HTML. Since Astro, remark, and rehype are build to handle Markdown, getting nbconvert to output my notebooks works perfectly! Using nbconvert in this way is as easy as running the following on the command line:
 
 ```sh
-nbconvert notebook.ipynb --output notebook
-
+nbconvert notebook.ipynb --to markdown
 ```
+
+While the command line interface is convenient, there are some things we have to do in order to make embedded content like output images work. By default, `nbconvert` will output images in a folder in the same directory, and fill in markdown links with that same path. In our use case, these paths have to be updated, so we have to do a bit more work than just invoking it through the shell with the default options.
