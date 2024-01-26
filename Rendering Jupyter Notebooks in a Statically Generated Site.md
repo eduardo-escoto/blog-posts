@@ -25,7 +25,8 @@ A brief preview of the structure:
     "# Title"
    ]
   },
-...
+  // ...
+],
 "kernelspec": {
    "display_name": "Python 3 (ipykernel)",
    "language": "python",
@@ -59,3 +60,4 @@ nbconvert notebook.ipynb --to markdown
 ```
 
 While the command line interface is convenient, there are some things we have to do in order to make embedded content like output images work. By default, `nbconvert` will output images in a folder in the same directory, and fill in markdown links with that same path. In our use case, these paths have to be updated, so we have to do a bit more work than just invoking it through the shell with the default options.
+### nbconvert as a python package
